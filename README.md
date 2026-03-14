@@ -97,9 +97,9 @@ Open your browser at `http://127.0.0.1:5000`
 
 ---
 
-![Analyze](https://example.com/analyze.png)
-![Sentiment Label](https://example.com/sentiment_label.png)
-![Sentiment Score](https://example.com/sentiment_score.png)
+![Analyze](analyze.png)
+![Sentiment Label](sentiment_label.png)
+![Sentiment Score](sentiment_score.png)
 
 
 ## How It Works

@@ -1,0 +1,28 @@
+# 🔥 Virtual environment (VERY IMPORTANT)
+venv/
+
+# 🔹 Python cache
+__pycache__/
+*.py[cod]
+
+# 🔹 Environment variables / secrets
+.env
+.env.*
+
+# 🔹 Logs
+*.log
+
+# 🔹 OS junk
+.DS_Store
+Thumbs.db
+
+# 🔹 IDE folders (optional but recommended)
+.vscode/
+.idea/
+
+# 🔹 Old/unused files
+app_old.py
+
+# 🔹 Database files (if created later)
+*.db
+*.sqlite3

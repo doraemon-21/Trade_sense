@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="AI-powered stock analysis platform. Browse available stocks and run predictions.">
+  <title>Stock Market — Helyxon</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    crossorigin="anonymous" referrerpolicy="no-referrer">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+  <!-- ── Navbar ──────────────────────────────────────────────── -->
+  <nav class="ap-navbar">
+    <a class="ap-brand" href="/">
+      <div class="ap-brand-icon"><i class="fas fa-chart-line"></i></div>
+      <div class="ap-brand-text">Trade<span>Sense</span></div>
+    </a>
+    <ul class="ap-nav-links">
+      <li><a class="ap-nav-link active" href="/" id="nav-home"><i class="fas fa-home"></i> Stocks</a></li>
+      <li><a class="ap-nav-link" href="/sentiment" id="nav-sentiment"><i class="fas fa-newspaper"></i> News
+          Sentiment</a></li>
+    </ul>
+  </nav>
+
+  <!-- ── Page Content ─────────────────────────────────────────── -->
+  <div class="ap-page">
+
+    <!-- Hero -->
+    <div class="ap-hero">
+      <div class="ap-hero-inner">
+        <div class="ap-hero-label"><i class="fas fa-microchip"></i> AI-Powered Analysis</div>
+        <h1>Stock <span class="gradient-text">Intelligence</span></h1>
+        <p>Select a stock to run machine-learning forecasts · Buy / Hold / Sell signals · Real-time data</p>
+      </div>
+    </div>
+
+    <!-- Control Panel -->
+    <div class="ap-control-panel">
+      <form method="POST" action="/dashboard" id="analyze-form">
+        <div class="ap-control-panel-inner">
+          <div class="ap-field" style="max-width:320px;">
+            <label class="ap-label" for="ticker"><i class="fas fa-tag"></i> Select Ticker</label>
+            <select class="ap-select" id="ticker" name="ticker">
+              {% for sym, name in stock_list %}
+              <option value="{{ sym }}">{{ sym }} — {{ name }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <button class="ap-btn ap-btn-primary" type="submit" id="analyze-btn">
+            <i class="fas fa-magnifying-glass-chart"></i> Analyze Stock
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Stock Cards Grid -->
+    <div class="ap-stocks-section">
+      <div class="ap-section-title">
+        <i class="fas fa-layer-group"></i>
+        Available Stocks
+        <span class="ap-badge">{{ stock_list|length }}</span>
+      </div>
+      <div class="ap-stocks-grid">
+        {% for sym, name in stock_list %}
+        <div class="ap-stock-card" onclick="selectAndAnalyze('{{ sym }}')">
+          <div class="ap-stock-card-inner">
+            <div class="ap-stock-symbol">{{ sym }}</div>
+            <div class="ap-stock-name">{{ name }}</div>
+            <div class="ap-stock-footer">
+              <span class="ap-stock-analyze-btn"><i class="fas fa-arrow-trend-up"></i> Analyze</span>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+  </div><!-- /ap-page -->
+
+  <script>
+    function selectAndAnalyze(sym) {
+      document.getElementById('ticker').value = sym;
+      document.getElementById('analyze-form').submit();
+    }
+  </script>
+
+</body>
+
+</html>

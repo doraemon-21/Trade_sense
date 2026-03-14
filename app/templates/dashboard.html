@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="AI-powered stock price prediction with buy/hold/sell recommendations and signal details.">
+    <title>{{ selected_ticker }} Dashboard — Helyxon</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+        crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <!-- ── Navbar ──────────────────────────────────────────────── -->
+    <nav class="ap-navbar">
+        <a class="ap-brand" href="/">
+            <div class="ap-brand-icon"><i class="fas fa-chart-line"></i></div>
+            <div class="ap-brand-text">Trade <span>Sense</span></div>
+        </a>
+        <ul class="ap-nav-links">
+            <li><a class="ap-nav-link" href="/" id="nav-home"><i class="fas fa-home"></i> Stocks</a></li>
+            <li><a class="ap-nav-link active" href="#" id="nav-dashboard"><i class="fas fa-gauge-high"></i>
+                    Dashboard</a></li>
+            <li><a class="ap-nav-link" href="/sentiment" id="nav-sentiment"><i class="fas fa-newspaper"></i> News
+                    Sentiment</a></li>
+        </ul>
+    </nav>
+
+    <!-- ── Page Content ─────────────────────────────────────────── -->
+    <div class="ap-page">
+
+        <!-- Hero -->
+        <div class="ap-hero">
+            <div class="ap-hero-inner">
+                <div class="ap-hero-label"><i class="fas fa-microchip"></i> AI-Powered Analysis</div>
+                <h1><span class="gradient-text">{{ selected_ticker }}</span> Dashboard</h1>
+                <p>Machine-learning forecasts · Buy / Hold / Sell signals · Real-time data</p>
+            </div>
+        </div>
+
+        <!-- Control Panel -->
+        <div class="ap-control-panel">
+            <form method="POST" action="/dashboard" id="analyze-form">
+                <div class="ap-control-panel-inner">
+                    <div class="ap-field" style="max-width:320px;">
+                        <label class="ap-label" for="ticker"><i class="fas fa-tag"></i> Ticker Symbol</label>
+                        <select class="ap-select" id="ticker" name="ticker">
+                            {% for sym, name in stock_list %}
+                            <option value="{{ sym }}" {% if selected_ticker==sym %}selected{% endif %}>{{
+                                sym }} — {{ name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <button class="ap-btn ap-btn-primary" type="submit" id="analyze-btn">
+                        <i class="fas fa-magnifying-glass-chart"></i> Analyze
+                    </button>
+                    {% if selected_ticker %}
+                    <a class="ap-btn" href="/sentiment?ticker={{ selected_ticker }}"
+                        style="background:rgba(6,182,212,0.12);border:1.5px solid rgba(6,182,212,0.3);color:#67e8f9;">
+                        <i class="fas fa-newspaper"></i> View News Sentiment
+                    </a>
+                    {% endif %}
+                </div>
+            </form>
+        </div>
+
+        <!-- Results Grid -->
+        {% if chart %}
+        <div class="ap-grid ap-grid-3-1">
+
+            <!-- Chart -->
+            <div class="ap-card ap-chart-card">
+                <div class="ap-card-header">
+                    <div class="icon icon-blue"><i class="fas fa-chart-line"></i></div>
+                    Price History
+                    {% if selected_ticker %}
+                    <span class="ap-ticker-badge" style="margin-left:auto;">{{ selected_ticker }}</span>
+                    {% endif %}
+                </div>
+                <div class="ap-card-body">
+                    {{ chart|safe }}
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="ap-sidebar">
+
+                <!-- Recommendation -->
+                {% if recommendation %}
+                {% set rec_cls = 'buy' if recommendation.text == 'BUY' else ('sell' if recommendation.text == 'SELL'
+                else
+                'hold') %}
+                <div class="ap-rec-card {{ rec_cls }}">
+                    <div class="ap-card-body">
+                        <div class="ap-rec-label">AI Recommendation</div>
+                        <div class="ap-rec-text">{{ recommendation.text }}</div>
+                        {% if explanation %}
+                        <div class="ap-rec-conf">Confidence: {{ (explanation.prob_up * 100) | round | int }}%</div>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- Signal Details (moved up, above feature importances) -->
+                {% if explanation %}
+                <div class="ap-card">
+                    <div class="ap-card-header">
+                        <div class="icon icon-amber"><i class="fas fa-signal"></i></div>
+                        Signal Details
+                    </div>
+                    <div class="ap-card-body">
+                        <div class="ap-stat-grid">
+                            <div class="ap-stat-box">
+                                <div class="val">${{ explanation.next_price | round(2) }}</div>
+                                <div class="lbl">Next Price</div>
+                            </div>
+                            <div class="ap-stat-box">
+                                <div class="val">{{ (explanation.prob_up * 100) | round(1) }}%</div>
+                                <div class="lbl">Up Prob.</div>
+                            </div>
+                            <div class="ap-stat-box">
+                                <div class="val">{{ explanation.rsi | round(1) }}</div>
+                                <div class="lbl">RSI</div>
+                            </div>
+                            <div class="ap-stat-box">
+                                <div class="val">{{ explanation.latest_sentiment | round(3) }}</div>
+                                <div class="lbl">Sentiment</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- Feature Importances -->
+                {% if feature_importances %}
+                <div class="ap-card">
+                    <div class="ap-card-header">
+                        <div class="icon icon-cyan"><i class="fas fa-ranking-star"></i></div>
+                        Top Features
+                    </div>
+                    <div class="ap-card-body">
+                        {% set max_imp = feature_importances[0].Importance %}
+                        {% for row in feature_importances %}
+                        <div class="ap-feature-row">
+                            <div class="ap-feature-meta">
+                                <span class="ap-feature-name">{{ row.Feature }}</span>
+                                <span class="ap-feature-val">{{ row.Importance | round(4) }}</span>
+                            </div>
+                            <div class="ap-bar-track">
+                                <div class="ap-bar-fill"
+                                    style="width: {{ ((row.Importance / max_imp) * 100) | round }}%"></div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+
+            </div><!-- /sidebar -->
+        </div><!-- /grid -->
+
+        {% else %}
+        <!-- Empty state -->
+        <div class="ap-card">
+            <div class="ap-empty">
+                <div class="ap-empty-icon"><i class="fas fa-chart-mixed"></i></div>
+                <p>Select a ticker above and click <strong>Analyze</strong> to run the AI prediction model.</p>
+            </div>
+        </div>
+        {% endif %}
+
+    </div><!-- /ap-page -->
+
+    <script>
+        // Animate bars after load
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.ap-bar-fill').forEach(bar => {
+                const w = bar.style.width;
+                bar.style.width = '0';
+                requestAnimationFrame(() => { bar.style.width = w; });
+            });
+        });
+    </script>
+
+</body>
+
+</html>

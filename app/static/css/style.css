@@ -1,0 +1,865 @@
+/* ============================================================
+   HELYXON STOCK INTELLIGENCE — Premium Dark Theme
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* ── CSS Variables ─────────────────────────────────────────── */
+:root {
+    --bg-base: #0a0d14;
+    --bg-surface: #111827;
+    --bg-elevated: #1a2235;
+    --bg-card: #162032;
+    --border-subtle: rgba(99, 179, 237, 0.12);
+    --border-accent: rgba(99, 179, 237, 0.28);
+
+    --text-primary: #f0f6ff;
+    --text-secondary: #8ba3c4;
+    --text-muted: #4a6080;
+
+    --accent-blue: #3b82f6;
+    --accent-cyan: #06b6d4;
+    --accent-purple: #8b5cf6;
+    --accent-green: #10b981;
+    --accent-amber: #f59e0b;
+    --accent-rose: #f43f5e;
+
+    --gradient-hero: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #0f172a 100%);
+    --gradient-card: linear-gradient(145deg, #162032, #111827);
+    --gradient-blue: linear-gradient(135deg, #1d4ed8, #3b82f6);
+    --gradient-green: linear-gradient(135deg, #059669, #10b981);
+    --gradient-red: linear-gradient(135deg, #be123c, #f43f5e);
+    --gradient-amber: linear-gradient(135deg, #b45309, #f59e0b);
+    --gradient-purple: linear-gradient(135deg, #6d28d9, #8b5cf6);
+
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 18px;
+    --radius-xl: 24px;
+
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
+    --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.5);
+    --shadow-lg: 0 8px 40px rgba(0, 0, 0, 0.6);
+    --shadow-glow-blue: 0 0 24px rgba(59, 130, 246, 0.25);
+    --shadow-glow-green: 0 0 24px rgba(16, 185, 129, 0.25);
+
+    --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ── Reset & Base ──────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background: var(--bg-base);
+    color: var(--text-primary);
+    min-height: 100vh;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ── Scrollbar ─────────────────────────────────────────────── */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-base);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--accent-blue);
+    border-radius: 3px;
+}
+
+/* ── Navbar ────────────────────────────────────────────────── */
+.ap-navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+    height: 64px;
+    background: rgba(10, 13, 20, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.ap-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    text-decoration: none;
+    color: var(--text-primary);
+    font-weight: 700;
+    font-size: 1.1rem;
+    letter-spacing: -0.02em;
+}
+
+.ap-brand-icon {
+    width: 36px;
+    height: 36px;
+    background: var(--gradient-blue);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    box-shadow: var(--shadow-glow-blue);
+}
+
+.ap-brand-text span {
+    background: linear-gradient(135deg, #60a5fa, #818cf8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.ap-nav-links {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    list-style: none;
+}
+
+.ap-nav-link {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.45rem 1rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    border: 1px solid transparent;
+    transition: all var(--transition);
+}
+
+.ap-nav-link:hover {
+    color: var(--text-primary);
+    background: var(--bg-elevated);
+    border-color: var(--border-subtle);
+    text-decoration: none;
+}
+
+.ap-nav-link.active {
+    color: #93c5fd;
+    background: rgba(59, 130, 246, 0.12);
+    border-color: rgba(59, 130, 246, 0.3);
+}
+
+/* ── Page Wrapper ──────────────────────────────────────────── */
+.ap-page {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 2rem 2rem 4rem;
+}
+
+/* ── Hero Header ───────────────────────────────────────────── */
+.ap-hero {
+    background: var(--gradient-hero);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-xl);
+    padding: 2.5rem 3rem;
+    margin-bottom: 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.ap-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 60L60 0' stroke='rgba(99,179,237,0.04)' stroke-width='1'/%3E%3C/svg%3E");
+    pointer-events: none;
+}
+
+.ap-hero-inner {
+    position: relative;
+    z-index: 1;
+}
+
+.ap-hero-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent-cyan);
+    background: rgba(6, 182, 212, 0.1);
+    border: 1px solid rgba(6, 182, 212, 0.25);
+    padding: 0.25rem 0.75rem;
+    border-radius: 100px;
+    margin-bottom: 0.75rem;
+}
+
+.ap-hero h1 {
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.2;
+    margin-bottom: 0.4rem;
+}
+
+.ap-hero h1 .gradient-text {
+    background: linear-gradient(135deg, #93c5fd 0%, #818cf8 50%, #67e8f9 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.ap-hero p {
+    color: var(--text-secondary);
+    font-size: 1rem;
+}
+
+/* ── Glass Card ────────────────────────────────────────────── */
+.ap-card {
+    background: var(--gradient-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.ap-card:hover {
+    border-color: var(--border-accent);
+    box-shadow: var(--shadow-md);
+}
+
+.ap-card-header {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--border-subtle);
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.ap-card-header .icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 7px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+}
+
+.icon-blue {
+    background: rgba(59, 130, 246, 0.15);
+    color: var(--accent-blue);
+}
+
+.icon-cyan {
+    background: rgba(6, 182, 212, 0.15);
+    color: var(--accent-cyan);
+}
+
+.icon-green {
+    background: rgba(16, 185, 129, 0.15);
+    color: var(--accent-green);
+}
+
+.icon-amber {
+    background: rgba(245, 158, 11, 0.15);
+    color: var(--accent-amber);
+}
+
+.icon-purple {
+    background: rgba(139, 92, 246, 0.15);
+    color: var(--accent-purple);
+}
+
+.icon-rose {
+    background: rgba(244, 63, 94, 0.15);
+    color: var(--accent-rose);
+}
+
+.ap-card-body {
+    padding: 1.5rem;
+}
+
+/* ── Control Panel (form) ──────────────────────────────────── */
+.ap-control-panel {
+    background: var(--gradient-card);
+    border: 1px solid var(--border-accent);
+    border-radius: var(--radius-xl);
+    padding: 2rem 2.5rem;
+    margin-bottom: 2rem;
+    box-shadow: var(--shadow-glow-blue);
+}
+
+.ap-control-panel-inner {
+    display: flex;
+    align-items: flex-end;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.ap-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    flex: 1;
+    min-width: 160px;
+}
+
+.ap-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+}
+
+.ap-select,
+.ap-input {
+    appearance: none;
+    -webkit-appearance: none;
+    background: var(--bg-base);
+    border: 1.5px solid var(--border-subtle);
+    border-radius: var(--radius-sm);
+    color: var(--text-primary);
+    padding: 0.65rem 1rem;
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 500;
+    outline: none;
+    transition: border-color var(--transition), box-shadow var(--transition);
+    width: 100%;
+}
+
+.ap-select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='6' viewBox='0 0 12 6'%3E%3Cpath d='M0 0l6 6 6-6z' fill='%238ba3c4'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.8rem center;
+    padding-right: 2.2rem;
+}
+
+.ap-select:focus,
+.ap-input:focus {
+    border-color: var(--accent-blue);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+/* ── Buttons ───────────────────────────────────────────────── */
+.ap-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.7rem 1.75rem;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition);
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.ap-btn-primary {
+    background: var(--gradient-blue);
+    color: #fff;
+    box-shadow: 0 4px 16px rgba(59, 130, 246, 0.4);
+}
+
+.ap-btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 24px rgba(59, 130, 246, 0.55);
+    color: #fff;
+}
+
+.ap-btn-primary:active {
+    transform: translateY(0);
+}
+
+/* ── Grid Layout ───────────────────────────────────────────── */
+.ap-grid {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.ap-grid-3-1 {
+    grid-template-columns: 1fr 340px;
+}
+
+/* ── Chart container ───────────────────────────────────────── */
+.ap-chart-card {
+    min-height: 360px;
+}
+
+.ap-chart-card .ap-card-body {
+    padding: 0.5rem 0.5rem 0;
+}
+
+/* ── Metrics ───────────────────────────────────────────────── */
+.ap-metric-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+}
+
+.ap-metric-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0.75rem;
+}
+
+.ap-metric-label {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    flex: 1;
+}
+
+.ap-metric-value {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    text-align: right;
+}
+
+.ap-divider {
+    height: 1px;
+    background: var(--border-subtle);
+    margin: 0.25rem 0;
+}
+
+/* ── Feature Importance Bars ───────────────────────────────── */
+.ap-feature-row {
+    margin-bottom: 0.85rem;
+}
+
+.ap-feature-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    margin-bottom: 0.3rem;
+}
+
+.ap-feature-name {
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.ap-feature-val {
+    color: var(--text-muted);
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.ap-bar-track {
+    height: 6px;
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.ap-bar-fill {
+    height: 100%;
+    border-radius: 3px;
+    background: linear-gradient(90deg, var(--accent-blue), var(--accent-cyan));
+    transition: width 0.6s ease;
+}
+
+/* ── Recommendation Badge ──────────────────────────────────── */
+.ap-rec-card {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    position: relative;
+}
+
+.ap-rec-card.buy {
+    background: var(--gradient-green);
+    box-shadow: var(--shadow-glow-green);
+}
+
+.ap-rec-card.sell {
+    background: var(--gradient-red);
+    box-shadow: 0 0 24px rgba(244, 63, 94, 0.25);
+}
+
+.ap-rec-card.hold {
+    background: var(--gradient-amber);
+    box-shadow: 0 0 24px rgba(245, 158, 11, 0.25);
+}
+
+.ap-rec-card .ap-card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.ap-rec-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    opacity: 0.75;
+}
+
+.ap-rec-text {
+    font-size: 2.8rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    color: #fff;
+}
+
+.ap-rec-conf {
+    font-size: 0.82rem;
+    opacity: 0.8;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* ── Explanation Stats ─────────────────────────────────────── */
+.ap-stat-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+}
+
+.ap-stat-box {
+    background: var(--bg-base);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-sm);
+    padding: 0.85rem;
+    text-align: center;
+}
+
+.ap-stat-box .val {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--accent-cyan);
+}
+
+.ap-stat-box .lbl {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    margin-top: 0.2rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* ── Sidebar stack ─────────────────────────────────────────── */
+.ap-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+/* ── Article list ──────────────────────────────────────────── */
+.ap-article {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.85rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--border-subtle);
+    transition: background var(--transition);
+}
+
+.ap-article:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.ap-article:first-child {
+    padding-top: 0;
+}
+
+.ap-article-chip {
+    flex-shrink: 0;
+    padding: 0.2rem 0.6rem;
+    border-radius: 100px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+.chip-positive {
+    background: rgba(16, 185, 129, 0.15);
+    color: #34d399;
+    border: 1px solid rgba(16, 185, 129, 0.25);
+}
+
+.chip-negative {
+    background: rgba(244, 63, 94, 0.15);
+    color: #fb7185;
+    border: 1px solid rgba(244, 63, 94, 0.25);
+}
+
+.chip-neutral {
+    background: rgba(148, 163, 184, 0.1);
+    color: #94a3b8;
+    border: 1px solid rgba(148, 163, 184, 0.2);
+}
+
+.ap-article-body {
+    flex: 1;
+    min-width: 0;
+}
+
+.ap-article-title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    line-height: 1.4;
+    margin-bottom: 0.2rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.ap-article-meta {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.ap-article-score {
+    flex-shrink: 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-align: right;
+}
+
+/* ── Ticker badge ──────────────────────────────────────────── */
+.ap-ticker-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.2rem 0.7rem;
+    background: rgba(99, 179, 237, 0.1);
+    border: 1px solid rgba(99, 179, 237, 0.2);
+    border-radius: 100px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: #93c5fd;
+}
+
+/* ── Empty state ───────────────────────────────────────────── */
+.ap-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem;
+    text-align: center;
+    gap: 1rem;
+}
+
+.ap-empty-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 16px;
+    background: var(--bg-elevated);
+    border: 1px dashed var(--border-accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: var(--text-muted);
+}
+
+.ap-empty p {
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    max-width: 260px;
+}
+
+/* ── Plotly chart overrides ────────────────────────────────── */
+.js-plotly-plot .plotly {
+    border-radius: var(--radius-md) !important;
+}
+
+/* ── Animations ────────────────────────────────────────────── */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(16px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.ap-card,
+.ap-control-panel {
+    animation: fadeInUp 0.4s ease both;
+}
+
+/* ── Responsive ────────────────────────────────────────────── */
+@media (max-width: 960px) {
+    .ap-grid-3-1 {
+        grid-template-columns: 1fr;
+    }
+
+    .ap-page {
+        padding: 1.25rem;
+    }
+
+    .ap-hero {
+        padding: 1.75rem;
+    }
+
+    .ap-control-panel-inner {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .ap-navbar {
+        padding: 0 1rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .ap-hero h1 {
+        font-size: 1.5rem;
+    }
+
+    .ap-rec-text {
+        font-size: 2.2rem;
+    }
+
+    .ap-stat-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ── Stock Listing Page ─────────────────────────────────────── */
+.ap-stocks-section {
+    margin-top: 0.5rem;
+}
+
+.ap-section-title {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    margin-bottom: 1.25rem;
+}
+
+.ap-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(59, 130, 246, 0.15);
+    border: 1px solid rgba(59, 130, 246, 0.25);
+    color: #93c5fd;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 0.1rem 0.55rem;
+    border-radius: 100px;
+}
+
+.ap-stocks-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1.25rem;
+}
+
+.ap-stock-card {
+    background: var(--gradient-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    cursor: pointer;
+    transition: all var(--transition);
+    animation: fadeInUp 0.4s ease both;
+}
+
+.ap-stock-card:hover {
+    border-color: rgba(59, 130, 246, 0.4);
+    box-shadow: 0 0 28px rgba(59, 130, 246, 0.18), var(--shadow-md);
+    transform: translateY(-3px);
+}
+
+.ap-stock-card-inner {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    height: 100%;
+}
+
+.ap-stock-symbol {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+    background: linear-gradient(135deg, #93c5fd, #67e8f9);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.ap-stock-name {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    line-height: 1.3;
+    flex: 1;
+}
+
+.ap-stock-footer {
+    margin-top: 1rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border-subtle);
+}
+
+.ap-stock-analyze-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--accent-blue);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    transition: color var(--transition);
+}
+
+.ap-stock-card:hover .ap-stock-analyze-btn {
+    color: #93c5fd;
+}
+
+@media (max-width: 600px) {
+    .ap-stocks-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

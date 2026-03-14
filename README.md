@@ -97,6 +97,10 @@ Open your browser at `http://127.0.0.1:5000`
 
 ---
 
+## Analysis
+
+analyze.png
+
 ## How It Works
 
 1. **Select a stock** from the home page
